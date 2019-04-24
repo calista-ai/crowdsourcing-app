@@ -1,0 +1,107 @@
+version: '3'
+
+services:
+  ##############################
+  ### SETUP SERVER CONTAINER ###
+  ##############################
+  server:
+    build:
+      context: ./back-end
+    container_name: server
+    expose:
+      - ${PORT}
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - MONGO_URI=mongodb://${ME_CONFIG_MONGODB_ADMINUSERNAME}:${ME_CONFIG_MONGODB_ADMINPASSWORD}@${MONGO_URI}
+      - PORT=${PORT}
+      - NODE_ENV=${NODE_ENV}
+      - VOTING_ROUNDS=${VOTING_ROUNDS}
+      - VOTING_TIME=${VOTING_TIME}
+      - NUMBER_OF_IMAGES=${NUMBER_OF_IMAGES}
+    volumes:
+      - ./back-end:/app/server
+      - ./db/utils:/data/utils
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    links:
+      - mongo
+
+  ##############################
+  ### SETUP CLIENT CONTAINER ###
+  ##############################
+  client:
+    build:
+      context: ./front-end
+    container_name: client
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    environment:
+    - REACT_APP_PORT=3000
+    - CHOKIDAR_USEPOLLING=true
+    - REACT_APP_VOTING_ROUNDS=${VOTING_ROUNDS}
+    - REACT_APP_VOTING_TIME=${VOTING_TIME}
+    volumes:
+      - ./front-end/src:/app/client/src
+      - ./front-end/public:/app/client/public
+      - /etc/localtime:/etc/localtime:ro
+    restart: always
+    links:
+      - server
+
+  #############################
+  ### SETUP MONGO CONTAINER ###
+  #############################
+  mongo:
+    image: mongo:3.4
+    container_name: mongo
+    restart: always
+    volumes:
+      - ./db/data:/data/db
+      - ./db/utils:/data/utils
+      - ./db/backup:/data/backup
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - ${MONGO_PORT}:${MONGO_PORT}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+
+  #####################################
+  ### SETUP MONGO-EXPRESS CONTAINER ###
+  #####################################
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_MONGODB_ENABLE_ADMIN=true
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${ME_CONFIG_MONGODB_ADMINUSERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${ME_CONFIG_MONGODB_ADMINPASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${ME_CONFIG_BASICAUTH_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${ME_CONFIG_BASICAUTH_PASSWORD}
+    depends_on:
+      - mongo
+
+  #############################
+  ### SETUP NGINX CONTAINER ###
+  #############################
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      -  /etc/localtime:/etc/localtime:ro
+    command: [nginx-debug, '-g', 'daemon off;']
+    ports:
+      - 80:80
+    links:
+      - client

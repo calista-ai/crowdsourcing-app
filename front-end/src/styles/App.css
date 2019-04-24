@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: flex;
+}
+
+/* Create two equal columns that sit next to each other */
+.column {
+  flex: 50%;
+  padding: 2px;
+}
+
+.separator {
+  position: absolute;
+  top: 50%;
+  left: 46%;
+  @include transform(translate(-50%, -50%));
+  width: 80px;
+  height: 80px;
+  border-radius: 100%;
+  background-color: #f7f7f7;
+  border: 8px solid #fff;
+  z-index: 999;
+  text-align: center;
+  line-height: 90px;
+  font-family: 'Quicksand';
+  font-weight: 700;
+  color: #3d454a;
+  font-size: 2em;
+}

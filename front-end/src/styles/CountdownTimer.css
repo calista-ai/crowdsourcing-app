@@ -1,0 +1,50 @@
+.countdown-timer {
+  position: absolute;
+  left: 50%;
+  margin-left: -28px;
+  width: 56px;
+  height: 56px;
+  background-color: #ffffff;
+  border-radius: 50%;
+}
+
+.countdown-timer__outer-circle {
+  position: absolute;
+  left: 50%;
+  margin-left: -26px;
+  width: 52px;
+  height: 52px;
+}
+
+.countdown-timer__circle circle {
+  stroke-dasharray: 151px;
+  stroke-dashoffset: 151px;
+  stroke-linecap: butt;
+  stroke-width: 4px;
+  stroke: #fd4f57;
+  fill: #f7f7f7;
+}
+
+.countdown-timer__circle svg {
+  width: 52px;
+  height: 52px;
+  transform: rotateZ(-90deg);
+}
+
+.countdown-timer__text {
+  position: absolute;
+  top: 17px;
+  width: 52px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+}
+
+@keyframes countdown-animation {
+  from {
+    stroke-dashoffset: 0px;
+  }
+  to {
+    stroke-dashoffset: 151px;
+  }
+}

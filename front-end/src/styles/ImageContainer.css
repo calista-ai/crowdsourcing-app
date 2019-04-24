@@ -1,0 +1,46 @@
+.image-container {
+    padding-bottom: 2%;
+    padding-top: 30px;
+    background: #f8f8f8;
+}
+
+.left {
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-left: 10px;
+  padding-right: 22px;
+  border-radius: 10px 0px 10px 10px;
+}
+
+.right {
+  margin-right: 5px;
+  margin-left: 5px;
+  padding-right: 10px;
+  padding-left: 22px;
+  border-radius: 0px 10px 10px 10px;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
+
+.image-container:hover img {
+    opacity: 0.7;
+    -o-transition: all .3s;
+    -moz-transition: all .3s;
+    -webkit-transition: all .3s;
+    -ms-transition: all .3s;
+}
+
+.image-container:hover {
+    box-shadow:
+        0 5px 15px 0 rgba(0,0,0,.05),
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -o-transition: all .5s;
+    -moz-transition: all .5s;
+    -webkit-transition: all .5s;
+    -ms-transition: all .5s;
+    cursor: pointer;
+}
