@@ -27,14 +27,14 @@ Add *.env* file in the root folder of the project which contains the following v
 | ME_CONFIG_BASICAUTH_USERNAME | Mongo-express username |
 | ME_CONFIG_BASICAUTH_PASSWORD | Mongo-express password |
 | NODE_ENV | Node environment variable |
-| VOTING_ROUNDS | Number of voting rounds each vote session |
+| VOTING_ROUNDS | Number of voting rounds of each vote session |
 | VOTING_TIME | Voting time in seconds of each comparison |
 | NUMBER_OF_IMAGES | Number of images in front-end/public/images/ |
 
 
 ### Step 3 - Setup
 
-The file *db/utils/comparisons_data.json* contains all possible pairwise comparisons that can be made between the images with random order. 
+The file *db/utils/comparisons_data.json* must contain all possible pairwise comparisons that can be made between the images with random order. 
 
 * To setup with a pre-existing *comparisons_data.json* file, execute the command:
 
