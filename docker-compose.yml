@@ -20,7 +20,7 @@ services:
       - VOTING_TIME=${VOTING_TIME}
       - NUMBER_OF_IMAGES=${NUMBER_OF_IMAGES}
     volumes:
-      - ./back-end:/app/server
+      - ./back-end/src:/app/server/src
       - ./db/utils:/data/utils
       - /etc/localtime:/etc/localtime:ro
     restart: always
