@@ -38,8 +38,10 @@ class VotingProcess extends Component {
       .then(res => {
          this.imageLeftIds = res.data.imageLeftIds
          this.imageRightIds = res.data.imageRightIds
-         console.log(this.imageLeftIds + '\n' + this.imageRightIds)
-         console.log('New vote sessions created: ' + res.data._id)
+
+         // DEBUGGING PURPOSES
+         // console.log(this.imageLeftIds + '\n' + this.imageRightIds)
+         // console.log('New vote sessions created: ' + res.data._id)
 
          this.setState({
            _id: res.data._id,
@@ -50,9 +52,12 @@ class VotingProcess extends Component {
   }
 
   updateVotingRound() {
-    console.log('')
+
     if (this.state.votingRound === parseInt(this.props.totalVotingRounds)) {
-      console.log('END VOTING')
+
+      // DEBUGGING PURPOSES
+      // console.log('END VOTING')
+
       this.setState({ votingCompleted: true })
     }
     else {
@@ -74,12 +79,16 @@ class VotingProcess extends Component {
 
     API.post(`votes/add/` + this.state._id, newVote)
       .then(res => {
-        console.log(res.data)
+        // DEBUGGING PURPOSES
+        // console.log(res.data)
+
         if (isLastVotingRound) {
           API.post(`votes/submit/` + this.state._id)
-            .then(res => {
-              console.log(res.data)
-            })
+          
+            // DEBUGGING PURPOSES
+            // .then(res => {
+            //   console.log(res.data)
+            // })
         }
       })
   }
@@ -88,8 +97,9 @@ class VotingProcess extends Component {
 
     if (this.state.imageLeftLoaded && this.state.imageRightLoaded)
     {
-      console.log('----- Result of round: ' + this.state.votingRound + ' -----')
-      console.log(this.state.imageLeftId + " vs " + this.state.imageRightId + " -> " + imageId)
+      // DEBUGGING PURPOSES
+      // console.log('----- Round: ' + this.state.votingRound + ' -----')
+      // console.log(this.state.imageLeftId + " vs " + this.state.imageRightId + " -> " + imageId)
 
       const newVote = {
         imL: this.state.imageLeftId,
@@ -104,8 +114,10 @@ class VotingProcess extends Component {
   }
 
   handleTimeout() {
-    console.log('----- Result of round: ' + this.state.votingRound + ' -----')
-    console.log(this.state.imageLeftId + " vs " + this.state.imageRightId + " -> Timeout")
+
+    // DEBUGGING PURPOSES
+    // console.log('----- Round: ' + this.state.votingRound + ' -----')
+    // console.log(this.state.imageLeftId + " vs " + this.state.imageRightId + " -> Timeout")
 
     const newVote = {
       imL: this.state.imageLeftId,
@@ -121,14 +133,20 @@ class VotingProcess extends Component {
   handleImageLoading(imageId) {
     if (imageId === this.state.imageLeftId) {
       this.setState({ imageLeftLoaded: true })
-      console.log('Left image loaded ' + this.state.imageLeftId)
+
+      // DEBUGGING PURPOSES
+      // console.log('Left image loaded ' + this.state.imageLeftId)
     }
     else if (imageId === this.state.imageRightId) {
       this.setState({ imageRightLoaded: true })
-      console.log('Right image loaded ' + this.state.imageRightId)
+
+      // DEBUGGING PURPOSES
+      // console.log('Right image loaded ' + this.state.imageRightId)
     }
     else {
-      console.log('Error: Cannot recognize imageId...')
+
+      // DEBUGGING PURPOSES
+      // console.log('Error: Cannot recognize imageId...')
     }
   }
 
@@ -191,7 +209,6 @@ class VotingProcess extends Component {
 
   }
 }
-
 
 
 export default VotingProcess
