@@ -9,8 +9,14 @@ const Comparison = require('./models/comparison.js')
 
 const PORT = process.env.PORT || 4000
 const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/votes"
+
+// number of comparisons that will be displayed in a vote session
 const numberOfComparisons = parseInt(process.env.VOTING_ROUNDS) || 8
-const timeLimitOfEachComparison = parseInt(process.env.VOTING_TIME) || 6 // in seconds
+
+// time limit for each voting round (in seconds)
+const timeLimitOfEachComparison = parseInt(process.env.VOTING_TIME) || 8
+
+// number of comparisons that are used for answer quality control
 const answerQualityControls = 2
 
 app.use(cors())
@@ -37,13 +43,17 @@ function randomInteger(low, high) {
 // start new vote session
 voteRoutes.route('/start_session').post((req, res) => {
 
+  // create a new document and save the time/date that
+  // the vote session started
   let voteSession = new VoteSession(req.body)
   voteSession.save()
+    // select the comparisons that will be displayed in the vote session
     .then(voteSession => {
 
       const numberOfComparisonsToSelect =
         numberOfComparisons - answerQualityControls
 
+      // get the comparisons that have been displayed less
       Comparison.find(
         { "u": false },
         {"_id": 1, "im1": 1, "im2": 1},
@@ -55,9 +65,15 @@ voteRoutes.route('/start_session').post((req, res) => {
             console.log(err)
           }
           else {
+            // imageLeftIds and imageRightIds contain the image pairs that will
+            // be compared. imageLeftIds contains the images that will be
+            // displayed on the left and imageRightIds the images that will be
+            // displayed on the right.
             let imageLeftIds = []
             let imageRightIds = []
 
+            // determine randomly the position (left or right) that images will
+            // be displayed
             let imageOrder = (Math.random() > 0.5) ? true : false
 
             for (let i = 0; i < docs.length; i++) {
@@ -72,6 +88,8 @@ voteRoutes.route('/start_session').post((req, res) => {
               }
             }
 
+            // add the answer quality control comparisons. These comparisons
+            // are selected randomly from imageLeftIds and imageRightIds arrays
             let answerControlIndex1 = numberOfComparisons / answerQualityControls - 1
             let answerControlIndex2 = numberOfComparisons - 1
 
@@ -91,11 +109,13 @@ voteRoutes.route('/start_session').post((req, res) => {
             })
 
             console.log('\nNew vote session started: ' + voteSession.id)
-
           }
         }
       )
 
+      // mark the comparisons that are currently used by the vote session as "used",
+      // so they are not selected by another vote session. After a time interval,
+      // the comparisons will be marked again as "not used".
       .then(docs => {
 
         docs.forEach((doc) => {
@@ -104,6 +124,7 @@ voteRoutes.route('/start_session').post((req, res) => {
               console.log('Error occurred while updating the comparisons selected: ' + err)
             }
 
+            // timeout time in milliseconds
             const timeoutTime = (numberOfComparisons+1) * timeLimitOfEachComparison * 1000 + 2000
 
             setTimeout(() => {
@@ -117,13 +138,9 @@ voteRoutes.route('/start_session').post((req, res) => {
             }, timeoutTime)
           })
         })
-
-
       })
 
     })
-
-
     .catch(err => {
       res.status(400).send('Failed to add new voteSession')
       console.log('Failed to start new vote session')
@@ -136,6 +153,7 @@ voteRoutes.route('/start_session').post((req, res) => {
 voteRoutes.route('/add/:id').post((req, res) => {
   let _id = req.params.id
 
+  // find the current vote session and add the result of a comparison
   VoteSession.findOneAndUpdate({ "_id" : _id }, { $push: {vot: req.body}}, (err, doc) => {
     if (err) {
       res.status(400).send(err)
@@ -149,7 +167,10 @@ voteRoutes.route('/add/:id').post((req, res) => {
   })
 })
 
+// check if the vote session passes the answer quality control
 function checkIfVoteSessionIsAccepted(votes) {
+
+  // get the answer quality control comparisons
   let answerControlIndex1 = numberOfComparisons / answerQualityControls - 1
   let answerControlIndex2 = numberOfComparisons - 1
 
@@ -159,6 +180,7 @@ function checkIfVoteSessionIsAccepted(votes) {
   let controlVote1 = votes[answerControlIndex1]
   let controlVote2 = votes[answerControlIndex2]
 
+  // check if the user gave correct answer to the control comparisons
   let answerIsAccepted1 = false
   for (let index = 0; index < votesSegment1.length; index++) {
     if (votesSegment1[index].imL === controlVote1.imR
@@ -179,10 +201,12 @@ function checkIfVoteSessionIsAccepted(votes) {
     }
   }
 
-
+  // the vote session is accepted only if all the control comparisons
+  // were answered correctly
   return (answerIsAccepted1 && answerIsAccepted2)
 }
 
+// remove the answer quality control comparisons from the votes array
 function removeControlComparisons(votes) {
   let answerControlIndex1 = numberOfComparisons / answerQualityControls - 1
   let answerControlIndex2 = numberOfComparisons - 1
@@ -193,9 +217,11 @@ function removeControlComparisons(votes) {
   return votes
 }
 
+// process the votes of the user when the vote session is complete
 voteRoutes.route('/submit/:id').post((req, res) => {
   let _id = req.params.id
 
+  // get the votes of the vote session
   VoteSession.findOne({ "_id" : _id }, (err, doc) => {
     if (err) {
       res.status(400).send(err)
@@ -204,10 +230,10 @@ voteRoutes.route('/submit/:id').post((req, res) => {
     else {
       let votes = doc.vot
 
+      // check if the vote session passes the answer quality control
       if (checkIfVoteSessionIsAccepted(votes))
       {
-        votes = removeControlComparisons(votes)
-
+        // mark the vote session as "accepted"
         VoteSession.findOneAndUpdate({ "_id" : _id }, { $set: {acc: true}}, (err, doc) => {
           if (err) {
             res.status(400).send(err)
@@ -219,10 +245,16 @@ voteRoutes.route('/submit/:id').post((req, res) => {
           }
         })
 
-        // update comparison table
+        // remove the answer quality control comparisons
+        votes = removeControlComparisons(votes)
+
+        // update the comparisons collection with the results of the vote session
         for (let index = 0; index < votes.length; index++) {
           let vote = votes[index]
 
+          // if the user did not choose an image during a voting round,
+          // a timeout occurred. In this case, the comparisons collection is
+          // not updated for this particular comparison
           if (vote.imC !== -1) {
             let rowId, columnId
             if (vote.imL > vote.imR) {
@@ -256,7 +288,7 @@ voteRoutes.route('/submit/:id').post((req, res) => {
             )
           }
         }
-        res.status(200).send('Comparison table updated successfully: ' + _id)
+        res.status(200).send('Vote session was processed successfully: ' + _id)
       }
       else {
         res.status(200).send('Vote session was not accepted: ' + _id)

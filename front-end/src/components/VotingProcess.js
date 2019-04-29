@@ -194,4 +194,4 @@ class VotingProcess extends Component {
 
 
 
-export default VotingProcess;
+export default VotingProcess

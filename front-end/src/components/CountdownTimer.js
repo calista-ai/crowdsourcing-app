@@ -62,13 +62,13 @@ class CountdownTimer extends Component {
                 cx="26"
                 cy="26"
                 style={
-                        this.state.timerStarted
-                        ? {
-                            animation: `countdown-animation ${this.props
-                              .startTimeInSeconds}s linear`
-                          }
-                        : null
-                      }
+                  this.state.timerStarted
+                  ? {
+                      animation: `countdown-animation ${this.props
+                        .startTimeInSeconds}s linear`
+                    }
+                  : null
+                }
               />
             </svg>
           </div>
@@ -80,5 +80,6 @@ class CountdownTimer extends Component {
     );
   }
 }
+
 
 export default CountdownTimer
