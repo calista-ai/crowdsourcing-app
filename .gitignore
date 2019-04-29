@@ -62,3 +62,7 @@ typings/
 
 # images
 *.png
+
+# database data
+backup/
+data/
