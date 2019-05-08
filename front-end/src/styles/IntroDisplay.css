@@ -37,6 +37,18 @@
   color: #888;
 }
 
+.demo {
+  padding-left: 3%;
+  padding-right: 3%;
+  text-align: center;
+}
+
+.demo img {
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 .button-to-start {
   text-align: center;
   margin-bottom: 15px;

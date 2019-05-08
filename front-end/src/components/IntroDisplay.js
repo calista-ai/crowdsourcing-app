@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Header from './Header.js'
 
 import '../styles/IntroDisplay.css'
+import demoGif from '../assets/demo.gif'
 
 function IntroDisplay() {
 
@@ -33,8 +34,11 @@ function IntroDisplay() {
             find visually more attractive</span> by clicking on it.
             <br />
             For each comparison between two webpages you will
-            have <span style={style}>approximately {votingTime} seconds</span>.</p>
-
+            have <span style={style}>approximately {votingTime} seconds</span>.
+            You can take a look at the following example.</p>
+          <div className="demo">
+            <img src={demoGif} alt="example"/>
+          </div>
           <h4>Privacy and Data Collection</h4>
           <p>We will not ask you any personal information, so your anonymity is ensured.
             Any data we collect will be securely stored.</p>
