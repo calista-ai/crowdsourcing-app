@@ -23,13 +23,14 @@ Add *.env* file in the root folder of the project which contains the following v
 | PORT | Server port |
 | MONGO_PORT | MongoDB port |
 | ME_CONFIG_MONGODB_ADMINUSERNAME | MongoDB username |
-| MME_CONFIG_MONGODB_ADMINPASSWORD | MongoDB password |
+| ME_CONFIG_MONGODB_ADMINPASSWORD | MongoDB password |
 | ME_CONFIG_BASICAUTH_USERNAME | Mongo-express username |
 | ME_CONFIG_BASICAUTH_PASSWORD | Mongo-express password |
 | NODE_ENV | Node environment variable |
 | VOTING_ROUNDS | Number of voting rounds of each vote session |
 | VOTING_TIME | Voting time in seconds of each comparison |
 | NUMBER_OF_IMAGES | Number of images in front-end/public/images/ |
+| BASEURL | Base URL that is used for the requests |
 
 
 ### Step 3 - Setup
