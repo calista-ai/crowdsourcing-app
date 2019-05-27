@@ -5,6 +5,11 @@
   font-style: italic;
 }
 
+.device_orientation_message {
+  margin: 2% 2% 2% 2%;
+  text-align: center;
+}
+
 .intro {
   margin-bottom: 10%;
   margin-left: 3%;
