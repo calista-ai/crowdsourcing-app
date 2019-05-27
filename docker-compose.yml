@@ -39,10 +39,11 @@ services:
     ports:
       - 3000:3000
     environment:
-    - REACT_APP_PORT=3000
-    - CHOKIDAR_USEPOLLING=true
-    - REACT_APP_VOTING_ROUNDS=${VOTING_ROUNDS}
-    - REACT_APP_VOTING_TIME=${VOTING_TIME}
+      - REACT_APP_PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_VOTING_ROUNDS=${VOTING_ROUNDS}
+      - REACT_APP_VOTING_TIME=${VOTING_TIME}
+      - REACT_APP_BASEURL=${BASEURL}    
     volumes:
       - ./front-end/src:/app/client/src
       - ./front-end/public:/app/client/public
