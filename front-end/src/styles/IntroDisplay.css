@@ -6,8 +6,13 @@
 }
 
 .device_orientation_message {
-  margin: 2% 2% 2% 2%;
+  margin: 2% 1% 2% 1%;
   text-align: center;
+}
+
+.device_orientation_message img {
+  max-width: 100%;
+  height: auto;
 }
 
 .intro {
