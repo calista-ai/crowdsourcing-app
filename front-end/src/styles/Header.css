@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter Regular"), local("Bitter-Regular"),
+    url("../assets/fonts/bitter-v12-latin-ext_latin-regular.woff2") format("woff2"),
+    url("../assets/fonts/bitter-v12-latin-ext_latin-regular.woff") format("woff");
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Bitter";
+  src: local("Bitter Bold"), local("Bitter-Bold"),
+    url("../assets/fonts/bitter-v12-latin-ext_latin-700.woff2") format("woff2"),
+    url("../assets/fonts/bitter-v12-latin-ext_latin-700.woff") format("woff");
+  font-style: normal;
+  font-weight: 700;
+}
+
 header {
   background-color: #f7f7f7;
   display: flex;
@@ -7,11 +25,39 @@ header {
   overflow: hidden;
 }
 
-header p {
+header .logo {
+  text-align: center;
+  color: #004488;
+  font-family: 'Bitter', Georgia, Arial, Tahoma;
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+header .site-title {
   color: #3d454a;
   text-align: center;
   text-decoration: none;
   font-size: 22px;
-  line-height: 25px;
-  border-radius: 4px;
+  margin-top: 0;
+  margin-bottom: 1%;
+}
+
+header .logo a:link {
+  color: #004488;
+}
+
+header .logo a:visited {
+  color: #004488;
+}
+
+header .logo a:active {
+  color: #333;
+  text-decoration: none;
+}
+
+header .logo a:hover {
+  color: #333;
+  text-decoration: none;
 }

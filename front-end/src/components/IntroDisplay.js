@@ -4,8 +4,8 @@ import Header from './Header.js'
 import { isMobile } from 'react-device-detect'
 
 import '../styles/IntroDisplay.css'
-import demoGif from '../assets/demo.gif'
-import rotateDeviceGif from '../assets/rotateDevice.gif'
+import demoGif from '../assets/img/demo.gif'
+import rotateDeviceGif from '../assets/img/rotateDevice.gif'
 
 class IntroDisplay extends Component {
 
@@ -52,14 +52,14 @@ class IntroDisplay extends Component {
     }
     else {
 
-      let keyPointStyle = {
+      const keyPointStyle = {
         color: 'green',
         fontWeight: 'bold'
       }
 
       return (
         <div>
-          <Header text="Understanding web visual preferences" />
+          <Header text="Understanding web visual preferences" logoDisplay={true} />
           <div className="text">
             <div className="title">
               <h3>Welcome to our voting platform!</h3>
@@ -104,7 +104,7 @@ class IntroDisplay extends Component {
   }
 
   componentWillUnmount() {
-    // detect if the device is mobile or tablet 
+    // detect if the device is mobile or tablet
     if (isMobile) {
       window.removeEventListener("resize", this.updateOrientation)
     }

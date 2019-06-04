@@ -7,7 +7,7 @@ import '../styles/EndingDisplay.css'
 function EndingDisplay() {
   return (
     <div>
-      <Header text="Understanding web visual preferences" />
+      <Header text="Understanding web visual preferences" logoDisplay={true} />
 
       <div className="outro">
         <h4>Thank you for participating in our research.</h4>

@@ -6,7 +6,7 @@ function VotingDisplay() {
 
   return (
     <div>
-      <Header text="Which design is more attractive?"/>
+      <Header text="Which design is more attractive?" logoDisplay={false} />
 
       <VotingProcess
         votingTime={process.env.REACT_APP_VOTING_TIME}
