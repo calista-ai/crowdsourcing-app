@@ -4,7 +4,7 @@ import '../styles/Header.css'
 
 function Header(props) {
 
-  const textStyle = props.logoDisplay ? null : {'padding-top': '15px'}
+  const textStyle = props.logoDisplay ? null : {'paddingTop': '15px'}
 
   return (
     <div>
