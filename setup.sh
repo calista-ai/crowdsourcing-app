@@ -7,13 +7,27 @@ fi
 
 docker-compose -f docker-compose.yml up -d --build
 
-argument="$1"
+for i in "$@"
+do
+argument="$i"
 case $argument in
   --create)
-    echo "*** Creating comparison pairs randomly ***"
+    echo "*** Creating comparison pairs with a random order ***"
     docker exec -w /data/utils server node createComparisonData.js
     ;;
+  --sortimages)
+    echo "*** Sorting images ***"
+    cd front-end/public/images
+    ls
+    num=0
+    for file in *.png; do
+       mv "$file" "$(printf "%u" $num).png"
+       num=$((num + 1))
+    done
+    cd ../../..
+    ;;
 esac
+done
 
 docker exec -w /data/utils mongo ./createVotesDB.sh
 
