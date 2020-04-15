@@ -36,13 +36,20 @@ Add a *.env* file in the root folder of the project and set the following variab
 
 ### Step 3 - Setup
 
-The file *db/utils/comparisons_data.json* must contain all possible pairwise comparisons that can be made between the images with random order. 
+This step is required only for the first time that you will run the application. This may take a few minutes as it will download the images required. 
 
-* To setup with a pre-existing *comparisons_data.json* file, execute the command:
+**TL;DR**:
 
-      ./setup.sh
-    
-* To setup by creating a new *comparisons_data.json* file, execute the command:
+Run the following command:
+
+      ./setup.sh --create --sortimages
+
+**More detailed options**: 
+* The images in front-end/public/images/ must be named with numbers starting from 0 (eg. 0.png, 1.png, 2.png, ...). If the images aren't already in this format, then you can use the option --sortimages to get them automatically renamed during the setup:
+
+      ./setup.sh --sortimages
+
+* If you want to set a new database, then it is required to have the file *db/utils/comparisons_data.json*. This file contains all possible pairwise comparisons that can be made between the images with random order. It is used for the database initialization. If you want to use a pre-existing *comparisons_data.json* file, then make sure that it is in *db/utils/* folder. Otherwise, you can use the option --create to get this file automatically created during the setup:
 
       ./setup.sh --create
       
