@@ -1,4 +1,4 @@
-# deep-web-aesthetics-app
+# Crowdsourcing App - *Calista*
 
 Web application for pairwise comparisons between images
 
