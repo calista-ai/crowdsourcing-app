@@ -26,10 +26,22 @@ case $argument in
     done
     cd ../../..
     ;;
+  --restore=*)
+    restore=true
+    BACKUPPATH="${i#*=}"
+    shift
+    ;;
 esac
 done
 
 docker exec -w /data/utils mongo ./createVotesDB.sh
+
+if [ "$restore" = true ] ; then
+    echo "*** Restoring database content from backup ***"
+    echo "PATH IN BACKUP FOLDER = ${BACKUPPATH}"
+    BACKUPPATH="../backup/${BACKUPPATH}"
+    docker exec -w /data/utils mongo ./restoreVotesDB.sh ${BACKUPPATH}
+fi
 
 docker-compose down
 
