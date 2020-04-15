@@ -11,11 +11,12 @@ Web application for pairwise comparisons between images
 
 ### Step 1 - Images
 
-Add the images in the folder *front-end/public/images/* 
+* Define the images that you want to collect data for
+* Add these images in the folder *front-end/public/images/* 
 
 ### Step 2 - Environment variables
 
-Add *.env* file in the root folder of the project which contains the following variables:
+Add a *.env* file in the root folder of the project and set the following variables:
 
 | Environment variable | Description | 
 | :-------------: | :-------------: |
