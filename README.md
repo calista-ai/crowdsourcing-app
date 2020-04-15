@@ -53,6 +53,7 @@ Run the following command:
 
       ./setup.sh --create
       
+* You can also combine multiple options.
 
 ### Step 4 - Run
 
