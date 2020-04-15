@@ -49,9 +49,32 @@ Run the following command:
 
       ./setup.sh --sortimages
 
-* If you want to set a new database, then it is required to have the file *db/utils/comparisons_data.json*. This file contains all possible pairwise comparisons that can be made between the images with random order. It is used for the database initialization. If you want to use a pre-existing *comparisons_data.json* file, then make sure that it is in *db/utils/* folder. Otherwise, you can use the option --create to get this file automatically created during the setup:
+* If you want to set a new database, then it is required to have the file *db/utils/comparisons_data.json*. This file contains all possible pairwise comparisons that can be made between the images with random order. It is used for the database initialization. If you want to use a pre-existing *comparisons_data.json* file, then make sure that it is in *db/utils/* directory. Otherwise, you can use the option --create to get this file automatically created during the setup:
 
       ./setup.sh --create
+      
+* If you want to restore an existing database, first make sure to move your backup files in *db/backup/* directory. Then you can use the option --restore=<PATH_TO_DATABASE_DUMP_IN_BACKUP_FOLDER>. 
+
+  For example, if you had the following structure, 
+
+  ```bash
+  ├── db
+  │   ├── backup
+  │   │   ├── 14_04_2020
+  │   │   |   └── votes
+  |   |   │       ├── comparisons.bson
+  |   |   │       ├── comparisons.metadata.json
+  |   |   │       ├── votesessions.bson
+  |   |   │       └── votesessions.metadata.json
+  .   .   .
+  .   .   .
+  .   .   .
+  ```
+  you would run:
+
+        ./setup.sh --restore=14_04_2020/votes
+        
+  *Note*: In this case, a *comparisons_data.json* file isn't needed. 
       
 * You can also combine multiple options or use none.
 
