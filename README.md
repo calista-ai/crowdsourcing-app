@@ -61,11 +61,11 @@ Run the following command:
   ├── db
   │   ├── backup
   │   │   ├── 14_04_2020
-  │   │   |   └── votes
-  |   |   │       ├── comparisons.bson
-  |   |   │       ├── comparisons.metadata.json
-  |   |   │       ├── votesessions.bson
-  |   |   │       └── votesessions.metadata.json
+  │   │   │   └── votes
+  │   │   │       ├── comparisons.bson
+  │   │   │       ├── comparisons.metadata.json
+  │   │   │       ├── votesessions.bson
+  │   │   │       └── votesessions.metadata.json
   .   .   .
   .   .   .
   .   .   .
