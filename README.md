@@ -36,7 +36,7 @@ Add a *.env* file in the root folder of the project and set the following variab
 
 ### Step 3 - Setup
 
-This step is required only for the first time that you will run the application. This may take a few minutes as it will download the images required. 
+This step is required only for the first time that you will run the application. This may take a few minutes as it will download the images required. If you have already completed this step once successfully, then you can jump directy to Step 4.
 
 **TL;DR**:
 
