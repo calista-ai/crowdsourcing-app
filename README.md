@@ -4,7 +4,7 @@ A Web Application to collect data from pairwise image comparisons via crowdsourc
 
 Calista team developed and used this app to build a comparison-based dataset on website aesthetics. 
 
-*Example from the evaluation proccess*:
+*Example from the evaluation process*:
 
 ![](/front-end/src/assets/img/demo.gif)
 
