@@ -18,6 +18,7 @@
 
 .loading-display .description {
     box-sizing: border-box;
+    padding: 0 2%;
 }
 
 .loading-display .description p {
