@@ -12,7 +12,9 @@ function Header(props) {
       {
         props.logoDisplay ?
         <p className="logo">
-          <a href="https://issel.ee.auth.gr/">issel</a>
+          <a href="https://calista.app" target="_blank" rel="noopener noreferrer">
+            <span>Calista</span>
+          </a>
         </p> :
         null
       }
