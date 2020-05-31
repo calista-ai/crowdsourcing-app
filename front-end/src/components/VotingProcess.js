@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router'
-import LoadingScreen from 'react-loading-screen'
 import ImageContainer from './ImageContainer.js'
 import CountdownTimer from './CountdownTimer.js'
 import ProgressBar from './ProgressBar.js'
 import API from '../api.js'
+import Header from './Header.js'
+import LoadingDisplay from './LoadingDisplay.js'
 
 class VotingProcess extends Component {
 
@@ -157,19 +158,13 @@ class VotingProcess extends Component {
     }
     else if (this.state._id === "") {
       return (
-        <LoadingScreen
-          loading={true}
-          bgColor='#f1f1f1'
-          spinnerColor='#9ee5f8'
-          textColor='#676767'
-          text='Loading the test. Please wait ...'
-          children=''
-        />
+        <LoadingDisplay />
       )
     }
     else {
       return (
         <div>
+          <Header text="Which design is more attractive?" logoDisplay={false} />
           <ProgressBar
             votingRound={this.state.votingRound}
             totalVotingRounds={this.props.totalVotingRounds}
