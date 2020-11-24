@@ -1,5 +1,7 @@
 # Crowdsourcing App - *Calista*
 
+[![DOI](https://zenodo.org/badge/255341729.svg)](https://zenodo.org/badge/latestdoi/255341729)
+
 A Web Application to collect data from pairwise image comparisons via crowdsourcing. Built with MERN stack.
 
 Calista team developed and used this app to build a [comparison-based dataset](https://github.com/calista-ai/website-aesthetics-datasets) on website aesthetics. 
